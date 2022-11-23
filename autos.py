@@ -29,11 +29,11 @@ palabra = ""
 
 while palabra != "silencio":
 	palabra = recognizeMicAudio()
-	print(palabra)
 	palabra = palabra.replace("silecio", "")
 	palabra = palabra.replace(" ", "")
 	palabra = palabra.upper()
-	cursor.execute("SELECT * FROM placas WHERE id_placa like'%"+palabra+"%' ")
+	print(palabra)
+	cursor.execute("SELECT * FROM placas WHERE placa like'%"+palabra+"%' ")
 	nDatos = cursor.rowcount
 	print("Se han encontrado",nDatos)
 	for fila in cursor:
