@@ -20,8 +20,8 @@ class Reconicimiento_autos:
 		self.eng.setProperty("voice",self.listVoices[0].id)
 		self.eng.say("RECONOCIMIENTO DE AUTOS")
 		self.eng.runAndWait()
-		#self.conexion = mysql.connector.connect(host="localhost",user="root",passwd="",database="autos")
-		#self.cursor = self.conexion.cursor(buffered=True)
+		self.conexion = mysql.connector.connect(host="localhost",user="root",passwd="",database="autos")
+		self.cursor = self.conexion.cursor(buffered=True)
 		root.title("Reconocimiento de placas") #setting title
         #----------------------- SETTING WINDOW------------------------
 		width=450
