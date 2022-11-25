@@ -75,9 +75,13 @@ class Reconicimiento_autos:
 	def recognizeMicAudio(self):
 		palabra = ""
 		print("Escuchando placa...")
-		with self.microphone as source:
-			audio = self.recognizer.listen(source)
-			palabra = self.recognizer.recognize_google(audio,language='es-MX')
+		try:
+			with self.microphone as source:
+				audio = self.recognizer.listen(source)
+				palabra = self.recognizer.recognize_google(audio,language='es-MX')
+		except Exception as e:
+			self.eng.say("Hable bien.")
+			self.eng.runAndWait()
 		return palabra
 
 	def buscarPlaca(self):
@@ -86,6 +90,7 @@ class Reconicimiento_autos:
 		palabra = palabra.replace("silecio", "")
 		palabra = palabra.replace(" ", "")
 		palabra = palabra.upper()
+		print(palabra)
 		self.cursor.execute("SELECT * FROM placas WHERE placa like'%"+palabra+"%' ")
 		nDatos = self.cursor.rowcount
 		if (nDatos > 0):
