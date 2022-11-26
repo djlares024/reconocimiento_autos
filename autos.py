@@ -91,35 +91,38 @@ class Reconicimiento_autos:
 		palabra = palabra.replace(" ", "")
 		palabra = palabra.upper()
 		print(palabra)
-		self.cursor.execute("SELECT * FROM placas WHERE placa like'%"+palabra+"%' ")
-		nDatos = self.cursor.rowcount
-		if (nDatos > 0):
-			for fila in self.cursor:
-				ide = fila[0]
-				placa = fila[1]
-				marca = fila[2]
-				modelo = fila[3]
-				anio = fila[4]
-				num_serie = fila[5]
-				color = fila[6]
-				num_puertas = fila[7]
-				tipo_motor = fila[8]
-				nombre_propietario = fila[9]
-				self.lblResultados["text"] =str(nDatos)
-				self.lblPlaca["text"] = placa
-				self.lblMarca["text"] = marca
-				self.lblModelo["text"] = modelo
-				self.lblAnio["text"] = anio
-				self.lblNumSerie["text"] = num_serie
-				self.lblColor["text"] = color
-				self.lblNoPuiertas["text"] = num_puertas
-				self.lblTipoMotor["text"] = tipo_motor
-				self.lblPropietario["text"] =nombre_propietario
-				similitud = SM(None, placa, palabra).ratio()
-				print(similitud)
-				if similitud > 0.7:
-					self.eng.say(marca + " " + modelo + " color " + color + " a nombre de " + nombre_propietario)
-					self.eng.runAndWait()
+		if(len(palabra)):
+			self.cursor.execute("SELECT * FROM placas WHERE placa like'%" + palabra + "%' ")
+			nDatos = self.cursor.rowcount
+			if (nDatos > 0):
+				for fila in self.cursor:
+					ide = fila[0]
+					placa = fila[1]
+					marca = fila[2]
+					modelo = fila[3]
+					anio = fila[4]
+					num_serie = fila[5]
+					color = fila[6]
+					num_puertas = fila[7]
+					tipo_motor = fila[8]
+					nombre_propietario = fila[9]
+					self.lblResultados["text"] =str(nDatos)
+					self.lblPlaca["text"] = placa
+					self.lblMarca["text"] = marca
+					self.lblModelo["text"] = modelo
+					self.lblAnio["text"] = anio
+					self.lblNumSerie["text"] = num_serie
+					self.lblColor["text"] = color
+					self.lblNoPuiertas["text"] = num_puertas
+					self.lblTipoMotor["text"] = tipo_motor
+					self.lblPropietario["text"] =nombre_propietario
+					similitud = SM(None, placa, palabra).ratio()
+					print(similitud)
+					if similitud > 0.7:
+						self.eng.say(marca + " " + modelo + " color " + color + " a nombre de " + nombre_propietario)
+						self.eng.runAndWait()
+			else:
+				self.lblResultados["text"] = 'Resultados:' + str(0)
 		else:
 			self.lblResultados["text"] = 'Resultados:' + str(0)
 		self.lblImage["image"] = self.micro
