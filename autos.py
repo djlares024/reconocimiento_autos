@@ -91,7 +91,7 @@ class Reconicimiento_autos:
 		palabra = palabra.replace(" ", "")
 		palabra = palabra.upper()
 		print(palabra)
-		if(len(palabra)):
+		if(len(palabra) > 0):
 			self.cursor.execute("SELECT * FROM placas WHERE placa like'%" + palabra + "%' ")
 			nDatos = self.cursor.rowcount
 			if (nDatos > 0):
